@@ -16,7 +16,7 @@ paint::~paint(){
     }
     delete [] value;
 }
-void paint::draw(int x,int y){value[x][y]++;}
+void paint::draw(int x,int y){value[x][y]=(value[x][y])?0:1;}
 void paint::save(string filename){
     fstream file;
     file.open(filename+".txt", ios::out | ios::trunc);
@@ -26,7 +26,7 @@ void paint::save(string filename){
             ptr[j] = '0'+value[i][j];
         }
         ptr[sizex] = '\n';
-        file.write(ptr, sizex);
+        file.write(ptr, sizex+1);
     }
     file.close();
 }

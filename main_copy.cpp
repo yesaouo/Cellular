@@ -18,7 +18,7 @@ int main(){
         c.print_board(b.get_board((t+1)%2));
     }*/
 
-    load load_file("87");
+    load load_file("8746");
     print print_file(load_file.get_alive(),load_file.get_sizex(),load_file.get_sizey(),true);
     paint paint_file(9,9);
     paint_file.save("8746");
