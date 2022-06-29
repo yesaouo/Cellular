@@ -1,0 +1,49 @@
+#include<iostream>
+#include<windows.h>
+#include"Cellular.h"
+using namespace std;
+class Board:public Cellular{
+public:
+    Board():Cellular(){
+        board1 = new bool*[get_hei()];
+        board2 = new bool*[get_hei()];
+        for(int i = 0; i < get_hei(); ++i) {
+            board1[i] = new bool[get_wid()]();
+            board2[i] = new bool[get_wid()]();
+        }
+        board[0]=board1;
+        board[1]=board2;
+        cout<<"設定生存細胞座標，不可超過生存空間(0 0終止輸入):"<<endl;
+        int x,y;
+        while(cin >>x>>y){
+            if((x==0&&y==0)||(x>get_wid()&&y>get_hei()))break;
+            board[0][x][y]= true;
+        }
+    }
+    ~Board(){
+        for(int i = 0; i < get_hei(); ++i) {
+            delete board1[i];
+            delete board2[i];
+        }
+        delete [] board1;
+        delete [] board2;
+    }
+    bool** get_board(int t){return board[t];}
+private:
+    bool **board[2], **board1, **board2;
+};
+
+int main(){
+    Board b;
+    b.print_board(b.get_board(0));
+    for (int t=0; t<b.get_times(); ++t){
+        for (int x=0; x<b.get_hei(); ++x)
+            for (int y=0; y<b.get_wid(); ++y)
+                b.go(x, y, b.get_board(t%2), b.get_board((t+1)%2));
+        Sleep(1000);
+        system("cls");
+        b.print_board(b.get_board((t+1)%2));
+    }
+    system("pause");
+    return 0;
+}
