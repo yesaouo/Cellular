@@ -6,7 +6,7 @@
 #include"Print.h"
 using namespace std;
 int main(){
-    paint paint_file(33,11);
+    paint paint_file(45,16);
     int ptrx,ptry;
     while(cin >> ptrx >>ptry){
         cout << "\x1B[2J\x1B[H";
@@ -15,10 +15,10 @@ int main(){
         load load_file("8746");
         print print_file(load_file.get_alive(),load_file.get_sizex(),load_file.get_sizey(),true);
     }
-    load load_file("8746");
+    load load_file("chen");
     Cellular c(load_file.get_alive(),load_file.get_sizex(),load_file.get_sizey());
     c.print_board(c.get_board(0));
-    for(int t=0; t<5; t++){
+    for(int t=0; t<50; t++){
         for(int x=0; x<load_file.get_sizey(); x++)
             for(int y=0; y<load_file.get_sizex(); y++)
                 c.go(x, y, c.get_board(t%2), c.get_board((t+1)%2));
