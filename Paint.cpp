@@ -16,7 +16,10 @@ paint::~paint(){
     }
     delete [] value;
 }
-void paint::draw(int x,int y){value[x][y]=(value[x][y])?0:1;}
+void paint::draw(int x,int y){
+    if((x==0&&y==0)||(x>sizex&&y>sizey))cout<<"Error\n";
+    else value[x][y]=(value[x][y])?0:1;
+}
 void paint::save(string filename){
     fstream file;
     file.open(filename+".txt", ios::out | ios::trunc);

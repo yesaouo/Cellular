@@ -1,40 +1,44 @@
 #include<iostream>
 #include"Cellular.h"
 using namespace std;
-Cellular::Cellular(){
-    cout<<"ºt¤Æ¦¸¼Æ:";
-    cin>>times;
-    cout<<"¥Í¦sªÅ¶¡¤j¤p(ªø ¼e):";
-    cin>>hei>>wid;
+Cellular::Cellular(bool **matrix,int x,int y):b1(matrix),hei(y),wid(x){
+    b2 = new bool*[hei];
+    for(int i = 0; i < hei; ++i) {
+        b2[i] = new bool[wid]();
+    }
+    board[0]=b1;
+    board[1]=b2;
 }
-int Cellular::get_hei(){return hei;}
-int Cellular::get_wid(){return wid;}
-int Cellular::get_times(){return times;}
-void Cellular::print_board(bool **board){
-    for (int x=0; x<hei; ++x)
-    {
-        for (int y=0; y<wid; ++y)
-            cout << (board[x][y] ? '@' : '*');
+Cellular::~Cellular(){
+    for(int i = 0; i < hei; i++){
+        delete[] b2[i];
+    }
+    delete [] b2;
+}
+void Cellular::print_board(bool **b){
+    for (int i=0; i<hei; ++i){
+        for (int j=0; j<wid; ++j)
+            cout << (b[i][j] ? '@' : '*');
         cout << '\n';
     }
     cout << '\n';
 }
-void Cellular::go(int x, int y, bool **board, bool **next){
-    int n = count_neighbor(x, y, board);
-    if (!board[x][y])
-        if (n == 3)                 //´_¬¡
+void Cellular::go(int x, int y, bool **now, bool **next){
+    int n = count_neighbor(x, y, now);
+    if (!now[x][y])
+        if (n == 3)                 //å¾©æ´»
             next[x][y] = true;
-        else                        //¤´ÂÂ¦º¤`
-            next[x][y] = board[x][y];
+        else                        //ä»èˆŠæ­»äº¡
+            next[x][y] = now[x][y];
     else
-        if (n == 2 || n == 3)       //¦s¬¡
+        if (n == 2 || n == 3)       //å­˜æ´»
             next[x][y] = true;
-        else if (n == 0 || n == 1)  //¦º©ó©t³æ
+        else if (n == 0 || n == 1)  //æ­»æ–¼å­¤å–®
             next[x][y] = false;
-        else if (n >= 4)            //¦º©ó¾ÖÀ½
+        else if (n >= 4)            //æ­»æ–¼æ“æ“ 
             next[x][y] = false;
 }
-int Cellular::count_neighbor(int x, int y, bool **board){
+int Cellular::count_neighbor(int x, int y, bool **b){
     static const int dx[8] = {-1,-1,-1,0,0,1,1,1};
     static const int dy[8] = {-1,0,1,-1,1,-1,0,1};
     int n = 0;
@@ -43,7 +47,8 @@ int Cellular::count_neighbor(int x, int y, bool **board){
         int mx = x + dx[i];
         int my = y + dy[i];
         if (mx >= 0 && mx < hei && my >= 0 && my < wid)
-            n += board[mx][my];
+            n += b[mx][my];
     }
     return n;
 }
+bool** Cellular::get_board(int t){return board[t];}
