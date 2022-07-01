@@ -18,7 +18,7 @@ Cellular::~Cellular(){
 void Cellular::print_board(bool **b){
     for (int i=0; i<hei; ++i){
         for (int j=0; j<wid; ++j)
-            cout << (b[i][j] ? "▒▒▒" : "░░░");
+            cout << (b[i][j] ? "▒▒▒" : "   ");
         cout << '\n';
     }
     cout << '\n';
