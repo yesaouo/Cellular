@@ -5,6 +5,7 @@ public:
     Cellular(bool **matrix,int x,int y);
     ~Cellular();
     void print_board(bool **b);
+    void print_board(bool **B1,bool **B2);
     void go(int x, int y, bool **now, bool **next);
     int count_neighbor(int x, int y, bool **b);
     bool **get_board(int t);

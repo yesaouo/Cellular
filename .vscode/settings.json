@@ -6,12 +6,14 @@
     "code-runner.preserveFocus": false,
     "code-runner.clearPreviousOutput": true,
     "code-runner.runInTerminal": true,
+    "code-runner.fileDirectoryAsCwd": true,
     "code-runner.saveFileBeforeRun": true,
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "files.associations": {
         "iostream": "cpp",
         "iosfwd": "cpp",
         "ostream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "string": "cpp"
     },
 }

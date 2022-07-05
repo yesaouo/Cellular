@@ -23,6 +23,29 @@ void Cellular::print_board(bool **b){
     }
     cout << '\n';
 }
+void Cellular::print_board(bool **B1,bool **B2){
+    for (int i=0; i<wid+2; i++){
+        cout<<" ■ ";
+    }
+    cout<<endl;
+    for (int i=0; i<hei; ++i){
+        cout<<" ■ ";
+        for (int j=0; j<wid; ++j){
+            if(B1[i][j]==B2[i][j]){
+                B1[i][j] =0;
+                B2[i][j] =0;
+                cout <<"   ";
+            }
+            if(B1[i][j]!=0)cout <<" ● ";
+            if(B2[i][j]!=0)cout <<" ▲ ";
+        }
+        cout<<" ■ \n";
+    }
+    for (int i=0; i<wid+2; i++){
+        cout<<" ■ ";
+    }
+    cout<<endl;
+}
 void Cellular::go(int x, int y, bool **now, bool **next){
     int n = count_neighbor(x, y, now);
     if (!now[x][y])

@@ -6,7 +6,7 @@ using namespace std;
 load::load(string filename){
     string ptr;
     ifstream in;
-    in.open(filename+".txt");
+    in.open(".//folder//"+filename+".txt");
     sizex=0;
     sizey=0;
     while(in>>ptr){
@@ -18,7 +18,7 @@ load::load(string filename){
     for(int i = 0; i < sizey; i++){
         alive[i] = new bool[sizex]{0};
     }
-    in.open(filename+".txt");
+    in.open(".//folder//"+filename+".txt");
     int j=0;
     while(in>>ptr){
         for(int i=0;i<ptr.size();i++){
