@@ -5,6 +5,7 @@
 #include<iostream>
 #include<windows.h>
 #include<string>
+#include<vector>
 #include<fstream>
 #include<cstdio>
 using namespace std;
@@ -82,7 +83,7 @@ void Print(string f1, string f2){
 void Filelist(){
     cout << "\x1B[2J\x1B[H";
     ifstream in;
-    in.open(".//folder//Filelist.txt");
+    in.open(".\\folder\\Filelist.txt");
     string ptr;
     while(in>>ptr){
         cout<<ptr<<endl;
@@ -91,12 +92,25 @@ void Filelist(){
     cout<<"----------------------------------------\n";
 }
 void Deletefile(string filename){
-    filename=".//folder//"+filename+".txt";
-    char *fn=new char[filename.size()];
+    string ptr;
+    vector<string>strvec;
+    ifstream in;
+    in.open(".\\folder\\Filelist.txt");
+    while(in>>ptr){
+        if(ptr!=filename)strvec.push_back(ptr);
+    }
+    in.close();
+    filename=".\\folder\\"+filename+".txt";
+    char *fn=new char[filename.size()+1];
     for(int i=0;i<filename.size(); i++)fn[i]=filename[i];
-    cout<<fn<<endl;
-    cout<<remove(fn)<<endl<<strerror(errno)<<endl;
+    fn[filename.size()]='\0';
+    remove(fn);
+    cout<<strerror(errno)<<endl;
     delete fn;
+    ofstream out;
+    out.open(".\\folder\\Filelist.txt");
+    for(int i=0;i<strvec.size(); i++)out<<strvec[i]<<endl;
+    out.close();
 }
 void Illustrate(){
     cin.clear();
